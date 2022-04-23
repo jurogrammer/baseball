@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ui.CLIResolverTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-04-23T16:09:50" hostname="jurogrammerui-MacBookPro.local" time="0.03">
+  <properties/>
+  <testcase name="print message" classname="ui.CLIResolverTest" time="0.03"/>
+  <system-out><![CDATA[message = 3개의 숫자를 모두 맞히셨습니다! 게임 종료
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

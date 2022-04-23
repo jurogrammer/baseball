@@ -3,7 +3,6 @@ package game;
 import java.util.*;
 
 public class Game {
-
     private List<Integer> numbers;
     private static final Random RANDOM = new Random();
     private static final int DIGIT_SIZE = 3;
@@ -22,7 +21,8 @@ public class Game {
         this.numbers = numbers;
     }
 
-    public Map<CASE, Integer> inferNumbers(List<Integer> questionNumbers) {
+    public InferResult inferNumbers(List<Integer> questionNumbers) {
+        boolean isVictory = false;
         Map<CASE, Integer> matches = new EnumMap<>(CASE.class);
         matches.put(CASE.STRIKE, 0);
         matches.put(CASE.BALL, 0);
@@ -43,11 +43,15 @@ public class Game {
             }
         }
 
-        return matches;
+        if (matches.get(CASE.STRIKE) == 3) {
+            isVictory = true;
+        }
+
+        return new InferResult(matches, isVictory);
     }
 
 
-    enum CASE {
+    public enum CASE {
         STRIKE,
         BALL
     }
