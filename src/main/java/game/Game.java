@@ -18,17 +18,32 @@ public class Game {
     }
 
     // for test
-    public void initWithNumber(List<Integer> numbers) {
+    public void init(List<Integer> numbers) {
         this.numbers = numbers;
     }
 
     public Map<CASE, Integer> inferNumbers(List<Integer> questionNumbers) {
         Map<CASE, Integer> matches = new EnumMap<>(CASE.class);
+        matches.put(CASE.STRIKE, 0);
+        matches.put(CASE.BALL, 0);
+
         if (questionNumbers.size() != 3) {
             throw new IllegalArgumentException("digit_size is different. questionNumberSize: " + questionNumbers.size());
         }
 
-        return null;
+
+        for (int i = 0; i < numbers.size(); i++) {
+            if (Objects.equals(questionNumbers.get(i), numbers.get(i))) {
+                matches.computeIfPresent(CASE.STRIKE, (key, value) -> value + 1);
+                continue;
+            }
+
+            if (numbers.contains(questionNumbers.get(i))) {
+                matches.computeIfPresent(CASE.BALL, (key, value) -> value + 1);
+            }
+        }
+
+        return matches;
     }
 
 
