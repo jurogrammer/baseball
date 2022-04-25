@@ -13,7 +13,9 @@ import java.util.stream.Collectors;
  * 1. CLI에서 들어온 String을 GAME INPUT에 알맞은 값으로 변환시키고
  * 2. GAME의 OUTPUT을 CLI에 반환될 값으로 반환시켜준다.
  */
-public class CLIResolver {
+public class CLIResolver implements Resolver {
+
+    @Override
     public Progress resolveStartOrEnd(String startOrEnd) {
         if ("1".equals(startOrEnd)) {
             return Progress.START;
@@ -24,18 +26,16 @@ public class CLIResolver {
         }
     }
 
+    @Override
     public List<Integer> resolveNumbers(String numbers) {
         return Arrays.stream(numbers.split(""))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public String toGameMessage(InferResult inferResult) {
         Map<Game.CASE, Integer> matches = inferResult.getMatches();
-
-        if (inferResult.isVictory()) {
-            return "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
-        }
 
         int strikes = matches.get(Game.CASE.STRIKE);
         int balls = matches.get(Game.CASE.BALL);
@@ -53,9 +53,8 @@ public class CLIResolver {
         return String.format("%d 스트라이크 %d 볼 ", strikes, balls);
     }
 
-    public enum Progress {
-        START,
-        END
-
+    @Override
+    public String victoryMessage() {
+        return "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
     }
 }

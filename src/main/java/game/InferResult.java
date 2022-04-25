@@ -3,19 +3,13 @@ package game;
 import java.util.Map;
 
 public class InferResult {
-    private Map<Game.CASE, Integer> matches;
-    private boolean isVictory;
+    private final Map<Game.CASE, Integer> matches;
 
-    public InferResult(Map<Game.CASE, Integer> matches, boolean isVictory) {
+    public InferResult(Map<Game.CASE, Integer> matches) {
         this.matches = matches;
-        this.isVictory = isVictory;
     }
 
     public Map<Game.CASE, Integer> getMatches() {
         return matches;
-    }
-
-    public boolean isVictory() {
-        return isVictory;
     }
 }

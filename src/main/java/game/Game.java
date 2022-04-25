@@ -6,6 +6,7 @@ public class Game {
     private List<Integer> numbers;
     private static final Random RANDOM = new Random();
     private static final int DIGIT_SIZE = 3;
+    private boolean isVictory;
 
     public void init() {
         List<Integer> numbers = new ArrayList<>();
@@ -14,6 +15,11 @@ public class Game {
         }
 
         this.numbers = numbers;
+        this.isVictory = false;
+    }
+
+    public boolean isVictory() {
+        return this.isVictory;
     }
 
     // for test
@@ -22,7 +28,6 @@ public class Game {
     }
 
     public InferResult inferNumbers(List<Integer> questionNumbers) {
-        boolean isVictory = false;
         Map<CASE, Integer> matches = new EnumMap<>(CASE.class);
         matches.put(CASE.STRIKE, 0);
         matches.put(CASE.BALL, 0);
@@ -47,7 +52,7 @@ public class Game {
             isVictory = true;
         }
 
-        return new InferResult(matches, isVictory);
+        return new InferResult(matches);
     }
 
 

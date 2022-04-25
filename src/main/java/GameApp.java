@@ -3,34 +3,36 @@ import game.InferResult;
 import ui.CLIInteractor;
 import ui.CLIResolver;
 import ui.Interactor;
+import ui.Resolver;
 
 import java.util.List;
 
 public class GameApp {
-    private static final String RESTART = "1";
-    private static final String END = "2";
-
     public static void run() {
         Game game = new Game();
-        CLIResolver cliResolver = new CLIResolver();
+        Resolver resolver = new CLIResolver();
         Interactor interactor = new CLIInteractor();
         game.init();
 
         while (interactor.hasRead()) {
-            String read = interactor.read();
-            CLIResolver.Progress progress = cliResolver.resolveStartOrEnd(read);
-            if (progress == CLIResolver.Progress.START) {
-                game.init();
-            } else if (progress == CLIResolver.Progress.END) {
+            startGame(game, resolver, interactor);
+            interactor.write(resolver.victoryMessage());
+
+            Resolver.Progress progress = resolver.resolveStartOrEnd(interactor.read());
+            if (progress == Resolver.Progress.END) {
                 break;
-            } else {
-                List<Integer> question = cliResolver.resolveNumbers(read);
-                InferResult inferResult = game.inferNumbers(question);
-
-                String message = cliResolver.toGameMessage(inferResult);
-                interactor.write(message);
             }
-        }
 
+            game.init();
+        }
+    }
+
+    private static void startGame(Game game, Resolver resolver, Interactor interactor) {
+        while (!game.isVictory()) {
+            List<Integer> question = resolver.resolveNumbers(interactor.read());
+            InferResult inferResult = game.inferNumbers(question);
+            String message = resolver.toGameMessage(inferResult);
+            interactor.write(message);
+        }
     }
 }

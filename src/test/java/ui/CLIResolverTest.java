@@ -27,16 +27,11 @@ class CLIResolverTest {
     }
 
     @Test
-    @DisplayName("print message")
+    @DisplayName("print victory message")
     void output_string_result() {
-        Map<Game.CASE, Integer> matches = new EnumMap<>(Game.CASE.class);
-        matches.put(Game.CASE.STRIKE, 1);
-        matches.put(Game.CASE.BALL, 0);
-
-        InferResult inferResult = new InferResult(matches, false);
         CLIResolver cliResolver = new CLIResolver();
 
-        String message = cliResolver.toGameMessage(inferResult);
+        String message = cliResolver.victoryMessage();
         System.out.println("message = " + message);
     }
 }
