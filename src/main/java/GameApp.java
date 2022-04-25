@@ -7,6 +7,9 @@ import ui.resolvers.Resolver;
 
 import java.util.List;
 
+/**
+ * DI 및 flow control 하는 클래스
+ */
 public class GameApp {
     public static void run() {
         Game game = new Game();
