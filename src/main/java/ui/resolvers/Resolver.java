@@ -15,6 +15,7 @@ public interface Resolver {
 
     String toGameMessage(InferResult inferResult);
 
+    String startMessage();
     String victoryMessage();
 
     enum Progress {

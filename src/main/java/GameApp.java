@@ -16,6 +16,7 @@ public class GameApp {
         Resolver resolver = new TerminalResolver();
         Interactor interactor = new TerminalInteractor();
         game.init();
+        interactor.write(resolver.startMessage());
 
         while (interactor.hasRead()) {
             startGame(game, resolver, interactor);
