@@ -14,13 +14,23 @@ import java.util.stream.Collectors;
  * 2. GAME의 OUTPUT을 CLI에 반환될 값으로 반환시켜준다.
  */
 public class CLIResolver {
-    public List<Integer> input(String numbers) {
+    public Progress resolveStartOrEnd(String startOrEnd) {
+        if ("1".equals(startOrEnd)) {
+            return Progress.START;
+        } else if ("2".equals(startOrEnd)) {
+            return Progress.END;
+        } else {
+            throw new RuntimeException("입력 값은 1 또는 2여야만 합니다. 입력: " + startOrEnd);
+        }
+    }
+
+    public List<Integer> resolveNumbers(String numbers) {
         return Arrays.stream(numbers.split(""))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
 
-    public String gameInputMessage(InferResult inferResult) {
+    public String toGameMessage(InferResult inferResult) {
         Map<Game.CASE, Integer> matches = inferResult.getMatches();
 
         if (inferResult.isVictory()) {
@@ -41,5 +51,11 @@ public class CLIResolver {
         }
 
         return String.format("%d 스트라이크 %d 볼 ", strikes, balls);
+    }
+
+    public enum Progress {
+        START,
+        END
+
     }
 }

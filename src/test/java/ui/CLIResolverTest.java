@@ -20,7 +20,7 @@ class CLIResolverTest {
         CLIResolver cliResolver = new CLIResolver();
 
         //when
-        List<Integer> input = cliResolver.input(numbers);
+        List<Integer> input = cliResolver.resolveNumbers(numbers);
 
         //then
         Assertions.assertThat(input).isEqualTo(List.of(1, 2, 3));
@@ -36,7 +36,7 @@ class CLIResolverTest {
         InferResult inferResult = new InferResult(matches, false);
         CLIResolver cliResolver = new CLIResolver();
 
-        String message = cliResolver.gameInputMessage(inferResult);
+        String message = cliResolver.toGameMessage(inferResult);
         System.out.println("message = " + message);
     }
 }

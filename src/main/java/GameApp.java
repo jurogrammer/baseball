@@ -1,9 +1,10 @@
 import game.Game;
 import game.InferResult;
+import ui.CLIInteractor;
 import ui.CLIResolver;
+import ui.Interactor;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class GameApp {
     private static final String RESTART = "1";
@@ -12,22 +13,24 @@ public class GameApp {
     public static void run() {
         Game game = new Game();
         CLIResolver cliResolver = new CLIResolver();
+        Interactor interactor = new CLIInteractor();
         game.init();
 
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNext()) {
-            String next = scanner.next();
-
-            if (next.equals(RESTART)) {
+        while (interactor.hasRead()) {
+            String read = interactor.read();
+            CLIResolver.Progress progress = cliResolver.resolveStartOrEnd(read);
+            if (progress == CLIResolver.Progress.START) {
                 game.init();
-            } else if (next.equals(END)) {
+            } else if (progress == CLIResolver.Progress.END) {
                 break;
             } else {
-                List<Integer> question = cliResolver.input(next);
+                List<Integer> question = cliResolver.resolveNumbers(read);
                 InferResult inferResult = game.inferNumbers(question);
-                String message = cliResolver.gameInputMessage(inferResult);
-                System.out.println(message);
+
+                String message = cliResolver.toGameMessage(inferResult);
+                interactor.write(message);
             }
         }
+
     }
 }
