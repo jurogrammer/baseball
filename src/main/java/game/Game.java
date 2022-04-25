@@ -15,12 +15,18 @@ public class Game {
     private boolean isVictory;
 
     public void init() {
-        List<Integer> numbers = new ArrayList<>();
-        for (int i = 0; i < DIGIT_SIZE; i++) {
-            numbers.add(RANDOM.nextInt(9));
-        }
+        numbers = new ArrayList<>();
+        while (!(numbers.size() == DIGIT_SIZE)) {
+            int i = RANDOM.nextInt(10);
 
-        this.numbers = numbers;
+            if (i == 0) {
+                continue;
+            }
+
+            if (!numbers.contains(i)) {
+                numbers.add(i);
+            }
+        }
         this.isVictory = false;
     }
 
