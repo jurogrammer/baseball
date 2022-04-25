@@ -12,9 +12,11 @@ import java.util.List;
  */
 public class GameApp {
     public static void run() {
+        // di
         Game game = new Game();
         Resolver resolver = new TerminalResolver();
         Interactor interactor = new TerminalInteractor();
+
         game.init();
         interactor.write(resolver.startMessage());
 
