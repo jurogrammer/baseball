@@ -1,6 +1,6 @@
-package ui;
+package ui.resolvers;
 
-import game.InferResult;
+import game.dto.InferResult;
 
 import java.util.List;
 

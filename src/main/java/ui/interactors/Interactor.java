@@ -1,4 +1,4 @@
-package ui;
+package ui.interactors;
 
 public interface Interactor {
     /**

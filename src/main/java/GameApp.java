@@ -1,9 +1,9 @@
 import game.Game;
-import game.InferResult;
-import ui.CLIInteractor;
-import ui.CLIResolver;
-import ui.Interactor;
-import ui.Resolver;
+import game.dto.InferResult;
+import ui.interactors.CLIInteractor;
+import ui.resolvers.CLIResolver;
+import ui.interactors.Interactor;
+import ui.resolvers.Resolver;
 
 import java.util.List;
 

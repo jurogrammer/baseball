@@ -1,4 +1,4 @@
-package game;
+package game.exceptions;
 
 public class GameException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package game;
+package game.dto;
 
 public class InferResult {
 
