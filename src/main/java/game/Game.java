@@ -33,7 +33,7 @@ public class Game {
         matches.put(CASE.BALL, 0);
 
         if (questionNumbers.size() != 3) {
-            throw new IllegalArgumentException("digit_size is different. questionNumberSize: " + questionNumbers.size());
+            throw new GameException("digit_size is different. questionNumberSize: " + questionNumbers.size());
         }
 
 

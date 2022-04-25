@@ -22,7 +22,7 @@ public class CLIResolver implements Resolver {
         } else if ("2".equals(startOrEnd)) {
             return Progress.END;
         } else {
-            throw new RuntimeException("입력 값은 1 또는 2여야만 합니다. 입력: " + startOrEnd);
+            throw new UIException("입력 값은 1 또는 2여야만 합니다. 입력: " + startOrEnd);
         }
     }
 
