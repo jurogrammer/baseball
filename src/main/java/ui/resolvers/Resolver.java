@@ -9,7 +9,7 @@ import java.util.List;
  * 게임 관점의 결과 -> 사용자 관점의 결과로 출력하는 클래스.
  */
 public interface Resolver {
-    CLIResolver.Progress resolveStartOrEnd(String startOrEnd);
+    TerminalResolver.Progress resolveStartOrEnd(String startOrEnd);
 
     List<Integer> resolveNumbers(String numbers);
 

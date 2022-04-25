@@ -1,7 +1,7 @@
 import game.Game;
 import game.dto.InferResult;
-import ui.interactors.CLIInteractor;
-import ui.resolvers.CLIResolver;
+import ui.interactors.TerminalInteractor;
+import ui.resolvers.TerminalResolver;
 import ui.interactors.Interactor;
 import ui.resolvers.Resolver;
 
@@ -13,8 +13,8 @@ import java.util.List;
 public class GameApp {
     public static void run() {
         Game game = new Game();
-        Resolver resolver = new CLIResolver();
-        Interactor interactor = new CLIInteractor();
+        Resolver resolver = new TerminalResolver();
+        Interactor interactor = new TerminalInteractor();
         game.init();
 
         while (interactor.hasRead()) {

@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * CLI <-> GAME간 input, output을 변환시켜주는 클래스.
- * 1. CLI에서 들어온 String을 GAME INPUT에 알맞은 값으로 변환시키고
+ * Terminal <-> GAME간 input, output을 변환시켜주는 클래스.
+ * 1. Terminal에서 들어온 String을 GAME INPUT에 알맞은 값으로 변환시키고
  * 2. GAME의 OUTPUT을 CLI에 반환될 값으로 반환시켜준다.
  */
-public class CLIResolver implements Resolver {
+public class TerminalResolver implements Resolver {
 
     @Override
     public Progress resolveStartOrEnd(String startOrEnd) {

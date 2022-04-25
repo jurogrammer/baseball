@@ -2,10 +2,10 @@ package ui.interactors;
 
 import java.util.Scanner;
 
-public class CLIInteractor implements Interactor {
+public class TerminalInteractor implements Interactor {
     private final Scanner scanner;
 
-    public CLIInteractor() {
+    public TerminalInteractor() {
         this.scanner = new Scanner(System.in);
     }
 
