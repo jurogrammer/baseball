@@ -3,30 +3,21 @@ package game;
 import game.dto.InferResult;
 import game.exceptions.GameException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 public class Game {
     private List<Integer> numbers;
-    private static final Random RANDOM = new Random();
     private static final int DIGIT_SIZE = 3;
+    private final RandomNumber randomNumber;
     private boolean isVictory;
 
+    public Game() {
+        this.randomNumber = new RandomNumber();
+    }
+
     public void init() {
-        numbers = new ArrayList<>();
-        while (!(numbers.size() == DIGIT_SIZE)) {
-            int i = RANDOM.nextInt(10);
-
-            if (i == 0) {
-                continue;
-            }
-
-            if (!numbers.contains(i)) {
-                numbers.add(i);
-            }
-        }
+        numbers = randomNumber.getNumbers(DIGIT_SIZE);
         this.isVictory = false;
     }
 
