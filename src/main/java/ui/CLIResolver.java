@@ -1,11 +1,9 @@
 package ui;
 
-import game.Game;
 import game.InferResult;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -35,22 +33,18 @@ public class CLIResolver implements Resolver {
 
     @Override
     public String toGameMessage(InferResult inferResult) {
-        Map<Game.CASE, Integer> matches = inferResult.getMatches();
-
-        int strikes = matches.get(Game.CASE.STRIKE);
-        int balls = matches.get(Game.CASE.BALL);
-        if (strikes == 0 && balls == 0) {
+        if (inferResult.getStrikeCnt() == 0 && inferResult.getBallCnt() == 0) {
             return "낫싱";
         }
-        if (balls == 0) {
-            return String.format("%d 스트라이크", strikes);
+        if (inferResult.getBallCnt() == 0) {
+            return String.format("%d 스트라이크", inferResult.getStrikeCnt());
         }
 
-        if (strikes == 0) {
-            return String.format("%d 볼", balls);
+        if (inferResult.getStrikeCnt() == 0) {
+            return String.format("%d 볼", inferResult.getBallCnt());
         }
 
-        return String.format("%d 스트라이크 %d 볼 ", strikes, balls);
+        return String.format("%d 스트라이크 %d 볼 ", inferResult.getStrikeCnt(), inferResult.getBallCnt());
     }
 
     @Override

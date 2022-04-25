@@ -1,15 +1,28 @@
 package game;
 
-import java.util.Map;
-
 public class InferResult {
-    private final Map<Game.CASE, Integer> matches;
 
-    public InferResult(Map<Game.CASE, Integer> matches) {
-        this.matches = matches;
+    private int strikeCnt;
+    private int ballCnt;
+
+    public InferResult() {
+        this.strikeCnt = 0;
+        this.ballCnt = 0;
     }
 
-    public Map<Game.CASE, Integer> getMatches() {
-        return matches;
+    public void addStrike() {
+        this.strikeCnt++;
+    }
+
+    public void addBall() {
+        this.ballCnt++;
+    }
+
+    public int getStrikeCnt() {
+        return strikeCnt;
+    }
+
+    public int getBallCnt() {
+        return ballCnt;
     }
 }

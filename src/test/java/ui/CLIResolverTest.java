@@ -1,14 +1,10 @@
 package ui;
 
-import game.Game;
-import game.InferResult;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 class CLIResolverTest {
 

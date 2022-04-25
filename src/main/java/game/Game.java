@@ -28,9 +28,7 @@ public class Game {
     }
 
     public InferResult inferNumbers(List<Integer> questionNumbers) {
-        Map<CASE, Integer> matches = new EnumMap<>(CASE.class);
-        matches.put(CASE.STRIKE, 0);
-        matches.put(CASE.BALL, 0);
+        InferResult inferResult = new InferResult();
 
         if (questionNumbers.size() != 3) {
             throw new GameException("digit_size is different. questionNumberSize: " + questionNumbers.size());
@@ -39,25 +37,19 @@ public class Game {
 
         for (int i = 0; i < numbers.size(); i++) {
             if (Objects.equals(questionNumbers.get(i), numbers.get(i))) {
-                matches.computeIfPresent(CASE.STRIKE, (key, value) -> value + 1);
+                inferResult.addStrike();
                 continue;
             }
 
             if (numbers.contains(questionNumbers.get(i))) {
-                matches.computeIfPresent(CASE.BALL, (key, value) -> value + 1);
+                inferResult.addBall();
             }
         }
 
-        if (matches.get(CASE.STRIKE) == 3) {
+        if (inferResult.getStrikeCnt() == 3) {
             isVictory = true;
         }
 
-        return new InferResult(matches);
-    }
-
-
-    public enum CASE {
-        STRIKE,
-        BALL
+        return inferResult;
     }
 }
