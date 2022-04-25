@@ -2,7 +2,7 @@
 클린하게~ 야구게임을 만들어보자
 
 # 구조
-[architecture image](https://github.com/jurogrammer/baseball/blob/master/images/baseball_architecture.drawio.png)
+![architecture image](https://github.com/jurogrammer/baseball/blob/master/images/baseball_architecture.drawio.png)
 
 # Idea
 
