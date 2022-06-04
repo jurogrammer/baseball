@@ -1,7 +1,8 @@
-package ui.resolver;
+package ui.terminal;
 
 import game.dto.InferResult;
 import ui.exception.UIException;
+import ui.Resolver;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,9 +1,8 @@
-package ui;
+package ui.terminal;
 
-import ui.interactor.Interactor;
-import ui.interactor.TerminalInteractor;
-import ui.resolver.Resolver;
-import ui.resolver.TerminalResolver;
+import ui.Interactor;
+import ui.Resolver;
+import ui.UIFactory;
 
 public class TerminalFactory implements UIFactory {
 

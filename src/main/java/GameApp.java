@@ -1,11 +1,11 @@
 import game.Game;
 import game.dto.InferResult;
 import game.exception.GameException;
-import ui.TerminalFactory;
+import ui.terminal.TerminalFactory;
 import ui.UIFactory;
 import ui.exception.UIException;
-import ui.interactor.Interactor;
-import ui.resolver.Resolver;
+import ui.Interactor;
+import ui.Resolver;
 
 import java.util.List;
 
