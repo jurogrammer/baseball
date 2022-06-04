@@ -1,9 +1,11 @@
 import game.Game;
 import game.dto.InferResult;
-import ui.interactors.TerminalInteractor;
-import ui.resolvers.TerminalResolver;
+import game.exceptions.GameException;
+import ui.exceptions.UIException;
 import ui.interactors.Interactor;
+import ui.interactors.TerminalInteractor;
 import ui.resolvers.Resolver;
+import ui.resolvers.TerminalResolver;
 
 import java.util.List;
 
@@ -35,10 +37,14 @@ public class GameApp {
 
     private static void startGame(Game game, Resolver resolver, Interactor interactor) {
         while (!game.isVictory()) {
-            List<Integer> question = resolver.resolveNumbers(interactor.read());
-            InferResult inferResult = game.inferNumbers(question);
-            String message = resolver.toGameMessage(inferResult);
-            interactor.write(message);
+            try {
+                List<Integer> question = resolver.resolveNumbers(interactor.read());
+                InferResult inferResult = game.inferNumbers(question);
+                String message = resolver.toGameMessage(inferResult);
+                interactor.write(message);
+            } catch (GameException | UIException ex) {
+                interactor.write(ex.getMessage());
+            }
         }
     }
 }
