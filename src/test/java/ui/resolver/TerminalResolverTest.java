@@ -2,7 +2,9 @@ package ui.resolver;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ui.Resolver;
 import ui.exception.UIException;
+import ui.terminal.TerminalFactory;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ class TerminalResolverTest {
     void string_to_number_list() {
         //given
         String numbers = "123";
-        TerminalResolver cliResolver = new TerminalResolver();
+        Resolver cliResolver = new TerminalFactory().createResolver();
 
         //when
         List<Integer> input = cliResolver.resolveNumbers(numbers);
@@ -28,7 +30,7 @@ class TerminalResolverTest {
     @Test
     @DisplayName("print victory message")
     void output_string_result() {
-        TerminalResolver cliResolver = new TerminalResolver();
+        Resolver cliResolver = new TerminalFactory().createResolver();
 
         String message = cliResolver.victoryMessage();
         System.out.println("message = " + message);
@@ -38,7 +40,7 @@ class TerminalResolverTest {
     @DisplayName("숫자 이외의 값을 전달할 경우 예외를 발생한다.")
     void must_be_number() {
         //given
-        TerminalResolver cliResolver = new TerminalResolver();
+        Resolver cliResolver = new TerminalFactory().createResolver();
 
         //when & then
         UIException uiException = assertThrows(UIException.class, () -> cliResolver.resolveNumbers("a23"));

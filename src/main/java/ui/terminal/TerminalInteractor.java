@@ -1,8 +1,10 @@
-package ui.interactor;
+package ui.terminal;
+
+import ui.Interactor;
 
 import java.util.Scanner;
 
-public class TerminalInteractor implements Interactor {
+class TerminalInteractor implements Interactor {
     private final Scanner scanner;
 
     public TerminalInteractor() {

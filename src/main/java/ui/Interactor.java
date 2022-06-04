@@ -1,4 +1,4 @@
-package ui.interactor;
+package ui;
 
 /**
  * 사용자로부터의 입력,
@@ -9,7 +9,7 @@ public interface Interactor {
     /**
      * if inputData is empty, must be blocked.
      *
-     * @return
+     * @return boolean
      */
     boolean hasRead();
 
