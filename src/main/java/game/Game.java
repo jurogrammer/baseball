@@ -1,7 +1,7 @@
 package game;
 
 import game.dto.InferResult;
-import game.exceptions.GameException;
+import game.exception.GameException;
 
 import java.util.List;
 import java.util.Objects;

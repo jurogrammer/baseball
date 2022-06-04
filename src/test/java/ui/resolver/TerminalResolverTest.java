@@ -1,8 +1,8 @@
-package ui.resolvers;
+package ui.resolver;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import ui.exceptions.UIException;
+import ui.exception.UIException;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ui.interactors;
+package ui.interactor;
 
 /**
  * 사용자로부터의 입력,

@@ -1,4 +1,4 @@
-package ui.resolvers;
+package ui.resolver;
 
 import game.dto.InferResult;
 

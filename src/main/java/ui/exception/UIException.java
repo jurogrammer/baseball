@@ -1,4 +1,4 @@
-package ui.exceptions;
+package ui.exception;
 
 public class UIException extends RuntimeException {
     public UIException() {

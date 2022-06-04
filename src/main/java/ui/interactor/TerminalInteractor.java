@@ -1,4 +1,4 @@
-package ui.interactors;
+package ui.interactor;
 
 import java.util.Scanner;
 
