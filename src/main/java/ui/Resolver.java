@@ -1,4 +1,4 @@
-package ui.resolver;
+package ui;
 
 import game.dto.InferResult;
 
@@ -9,7 +9,7 @@ import java.util.List;
  * 게임 관점의 결과 -> 사용자 관점의 결과로 출력하는 클래스.
  */
 public interface Resolver {
-    TerminalResolver.Progress resolveStartOrEnd(String startOrEnd);
+    Progress resolveStartOrEnd(String startOrEnd);
 
     List<Integer> resolveNumbers(String numbers);
 
