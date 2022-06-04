@@ -1,4 +1,6 @@
-package ui.interactor;
+package ui.terminal;
+
+import ui.Interactor;
 
 import java.util.Scanner;
 

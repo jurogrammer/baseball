@@ -1,11 +1,11 @@
 import game.Game;
 import game.dto.InferResult;
 import game.exception.GameException;
+import ui.terminal.TerminalFactory;
+import ui.UIFactory;
 import ui.exception.UIException;
-import ui.interactor.Interactor;
-import ui.interactor.TerminalInteractor;
-import ui.resolver.Resolver;
-import ui.resolver.TerminalResolver;
+import ui.Interactor;
+import ui.Resolver;
 
 import java.util.List;
 
@@ -16,8 +16,9 @@ public class GameApp {
     public static void run() {
         // di
         Game game = new Game();
-        Resolver resolver = new TerminalResolver();
-        Interactor interactor = new TerminalInteractor();
+        UIFactory uiFactory = new TerminalFactory();
+        Resolver resolver = uiFactory.createResolver();
+        Interactor interactor = uiFactory.createInteractor();
 
         game.init();
         interactor.write(resolver.startMessage());

@@ -1,6 +1,7 @@
-package ui.resolver;
+package ui;
 
 import game.dto.InferResult;
+import ui.terminal.TerminalResolver;
 
 import java.util.List;
 
