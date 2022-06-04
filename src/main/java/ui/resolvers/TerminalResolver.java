@@ -54,6 +54,11 @@ public class TerminalResolver implements Resolver {
     }
 
     @Override
+    public String toGameMessage(String message) {
+        return message;
+    }
+
+    @Override
     public String startMessage() {
         return "게임 시작!!! 3자리의 숫자를 입력하세요.";
     }

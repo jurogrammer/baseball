@@ -43,7 +43,7 @@ public class GameApp {
                 String message = resolver.toGameMessage(inferResult);
                 interactor.write(message);
             } catch (GameException | UIException ex) {
-                interactor.write(ex.getMessage());
+                interactor.write(resolver.toGameMessage(ex.getMessage()));
             }
         }
     }
