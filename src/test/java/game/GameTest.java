@@ -2,13 +2,13 @@ package game;
 
 import game.dto.InferResult;
 import game.exceptions.GameException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GameTest {
 
@@ -18,7 +18,7 @@ class GameTest {
         game.init();
         List<Integer> questionNumbers = List.of(1, 2);
 
-        Assertions.assertThrows(GameException.class, () -> game.inferNumbers(questionNumbers));
+        assertThrows(GameException.class, () -> game.inferNumbers(questionNumbers));
     }
 
     @Test
@@ -75,5 +75,22 @@ class GameTest {
         assertThat(victory).isTrue();
         assertThat(inferResult.getStrikeCnt()).isEqualTo(3);
         assertThat(inferResult.getBallCnt()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("3자리 수가 아닐 경우, 예외 발생")
+    void match_digit_size() {
+        //given
+        Game game = new Game();
+        game.init(List.of(1, 2, 3));
+
+        //when & then 많게 입력한 경우
+        GameException gameException = assertThrows(GameException.class, () -> game.inferNumbers(List.of(1, 2, 3, 4)));
+        assertThat(gameException.getMessage()).contains("3자리 숫자를 입력해주세요.");
+
+        // when & then 적게 입력한 경우
+        GameException gameException2 = assertThrows(GameException.class, () -> game.inferNumbers(List.of(1, 2)));
+        assertThat(gameException2.getMessage()).contains("3자리 숫자를 입력해주세요.");
+
     }
 }

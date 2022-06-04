@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class Game {
-    private List<Integer> numbers;
     private static final int DIGIT_SIZE = 3;
     private final RandomNumber randomNumber;
+    private List<Integer> numbers;
     private boolean isVictory;
 
     public Game() {
@@ -33,10 +33,9 @@ public class Game {
     public InferResult inferNumbers(List<Integer> questionNumbers) {
         InferResult inferResult = new InferResult();
 
-        if (questionNumbers.size() != 3) {
-            throw new GameException("digit_size is different. questionNumberSize: " + questionNumbers.size());
+        if (questionNumbers.size() != DIGIT_SIZE) {
+            throw new GameException(DIGIT_SIZE + "자리 숫자를 입력해주세요. 현재 입력한 숫자의 자리 수: " + questionNumbers.size());
         }
-
 
         for (int i = 0; i < numbers.size(); i++) {
             if (Objects.equals(questionNumbers.get(i), numbers.get(i))) {

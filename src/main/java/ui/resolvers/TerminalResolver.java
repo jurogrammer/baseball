@@ -27,9 +27,14 @@ public class TerminalResolver implements Resolver {
 
     @Override
     public List<Integer> resolveNumbers(String numbers) {
-        return Arrays.stream(numbers.split(""))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
+        try {
+            return Arrays.stream(numbers.split(""))
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+        } catch (NumberFormatException ex) {
+            throw new UIException("입력 값은 숫자여야 합니다. 입력: " + numbers);
+        }
+
     }
 
     @Override
@@ -46,6 +51,11 @@ public class TerminalResolver implements Resolver {
         }
 
         return String.format("%d 스트라이크 %d 볼 ", inferResult.getStrikeCnt(), inferResult.getBallCnt());
+    }
+
+    @Override
+    public String toGameMessage(String message) {
+        return message;
     }
 
     @Override

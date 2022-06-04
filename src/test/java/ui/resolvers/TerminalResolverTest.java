@@ -1,10 +1,13 @@
 package ui.resolvers;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ui.exceptions.UIException;
 
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TerminalResolverTest {
 
@@ -19,7 +22,7 @@ class TerminalResolverTest {
         List<Integer> input = cliResolver.resolveNumbers(numbers);
 
         //then
-        Assertions.assertThat(input).isEqualTo(List.of(1, 2, 3));
+        assertThat(input).isEqualTo(List.of(1, 2, 3));
     }
 
     @Test
@@ -29,5 +32,17 @@ class TerminalResolverTest {
 
         String message = cliResolver.victoryMessage();
         System.out.println("message = " + message);
+    }
+
+    @Test
+    @DisplayName("숫자 이외의 값을 전달할 경우 예외를 발생한다.")
+    void must_be_number() {
+        //given
+        TerminalResolver cliResolver = new TerminalResolver();
+
+        //when & then
+        UIException uiException = assertThrows(UIException.class, () -> cliResolver.resolveNumbers("a23"));
+
+        assertThat(uiException.getMessage()).contains("입력 값은 숫자여야 합니다");
     }
 }

@@ -15,6 +15,8 @@ public interface Resolver {
 
     String toGameMessage(InferResult inferResult);
 
+    String toGameMessage(String message);
+
     String startMessage();
 
     String victoryMessage();
