@@ -3,7 +3,6 @@ package ui.resolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ui.exception.UIException;
-import ui.terminal.TerminalResolver;
 
 import java.util.List;
 
