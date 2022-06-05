@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * DI 및 flow control 하는 클래스
  */
-public class GameApp {
-    public static void run() {
+public class GameApp implements App {
+    public void run() {
         // di
         Game game = new Game();
         UIFactory uiFactory = new TerminalFactory();
