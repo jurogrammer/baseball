@@ -1,6 +1,6 @@
 public class Application {
     public static void main(String[] args) {
-        App app = new GameApp();
+        App app = new HttpApp();
         app.run();
     }
 }

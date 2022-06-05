@@ -5,6 +5,8 @@ import ui.Interactor;
 import ui.Resolver;
 import ui.UIFactory;
 import ui.exception.UIException;
+import ui.http.HttpInteractor;
+import ui.http.HttpResolver;
 import ui.terminal.TerminalFactory;
 
 import java.util.List;
@@ -36,7 +38,7 @@ public class GameApp implements App {
         }
     }
 
-    private static void startGame(Game game, Resolver resolver, Interactor interactor) {
+    private void startGame(Game game, Resolver resolver, Interactor interactor) {
         while (!game.isVictory()) {
             try {
                 List<Integer> question = resolver.resolveNumbers(interactor.read());
