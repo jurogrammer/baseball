@@ -26,6 +26,6 @@ public class RequestParser {
         String url = splitRequestLine[1];
         String phrase = splitRequestLine[2];
 
-        return new Request(method, url, phrase, headers, body);
+        return new Request(Method.valueOf(method.toUpperCase()), url, phrase, headers, body);
     }
 }

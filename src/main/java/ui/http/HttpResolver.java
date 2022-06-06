@@ -12,10 +12,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HttpResolver implements Resolver {
+public class HttpResolver {
 
-    @Override
-    public Progress resolveStartOrEnd(String startOrEnd) {
+    public Action resolveAction(String httpRequest) {
+        RequestParser requestParser = getRequestParser();
+        Request request = requestParser.parse(httpRequest);
+        return Action.valueOf(request.getUrl(), request.getMethod());
+    }
+
+
+    public Resolver.Progress resolveStartOrEnd(String startOrEnd) {
         try {
             Request request = new RequestParser().parse(startOrEnd);
             String body = request.getBody();
@@ -28,13 +34,9 @@ public class HttpResolver implements Resolver {
         }
     }
 
-    @Override
     public List<Integer> resolveNumbers(String httpNumbers) {
         String numbers = "";
         try {
-            if (isIllegal(httpNumbers)) {
-                throw new UIException("숫자를 입력해주세요.");
-            }
             Request parse = new RequestParser().parse(httpNumbers);
             String body = parse.getBody();
             ObjectMapper objectMapper = new ObjectMapper();
@@ -51,11 +53,10 @@ public class HttpResolver implements Resolver {
         }
     }
 
-    @Override
     public String toGameMessage(InferResult inferResult) {
         try {
             String message = getResultMessage(inferResult);
-            InferResponse inferResponse = new InferResponse(message);
+            InferResponse inferResponse = new InferResponse(message, inferResult.getVictory());
             ObjectMapper objectMapper = new ObjectMapper();
             String body = objectMapper.writeValueAsString(inferResponse);
 
@@ -85,12 +86,14 @@ public class HttpResolver implements Resolver {
         return String.format("%d 스트라이크 %d 볼 ", inferResult.getStrikeCnt(), inferResult.getBallCnt());
     }
 
-    @Override
     public String toGameMessage(String message) {
-        return String.format("{\"message\": \"%s\"}", message);
+        return new ResponseBuilder()
+                .ok()
+                .addHeader("Content-Type", "application/json")
+                .body(String.format("{\"message\": \"%s\"}", message))
+                .build();
     }
 
-    @Override
     public String startMessage() {
         try {
             ResponseBuilder responseBuilder = new ResponseBuilder();
@@ -107,16 +110,8 @@ public class HttpResolver implements Resolver {
         }
     }
 
-    @Override
-    public String
-    victoryMessage() {
-        return null;
+    private RequestParser getRequestParser() {
+        return new RequestParser();
     }
 
-    @Override
-    public boolean isIllegal(String message) {
-        RequestParser requestParser = new RequestParser();
-        Request request = requestParser.parse(message);
-        return !URL.containURL(request.getUrl());
-    }
 }

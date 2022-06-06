@@ -1,6 +1,5 @@
 package ui.http;
 
-import ui.Interactor;
 import ui.exception.UIException;
 
 import java.io.IOException;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HttpInteractor implements Interactor {
+public class HttpInteractor  {
     private ServerSocket serverSocket;
     private Socket clientSocket;
 
@@ -27,7 +26,6 @@ public class HttpInteractor implements Interactor {
         }
     }
 
-    @Override
     public boolean hasRead() {
         try {
             clientSocket = serverSocket.accept();
@@ -37,7 +35,6 @@ public class HttpInteractor implements Interactor {
         return true;
     }
 
-    @Override
     public String read() {
         try {
             InputStream inputStream = clientSocket.getInputStream();
@@ -70,7 +67,6 @@ public class HttpInteractor implements Interactor {
         }
     }
 
-    @Override
     public void write(String content) {
         try {
             OutputStream outputStream = clientSocket.getOutputStream();

@@ -3,13 +3,13 @@ package ui.http;
 import java.util.Map;
 
 public class Request {
-    private String method;
+    private Method method;
     private String url;
     private String phase;
     private Map<String, String> header;
     private String body;
 
-    public Request(String method, String url, String phase, Map<String, String> header, String body) {
+    public Request(Method method, String url, String phase, Map<String, String> header, String body) {
         this.method = method;
         this.url = url;
         this.phase = phase;
@@ -17,7 +17,7 @@ public class Request {
         this.body = body;
     }
 
-    public String getMethod() {
+    public Method getMethod() {
         return method;
     }
 

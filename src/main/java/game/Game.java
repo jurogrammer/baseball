@@ -50,6 +50,7 @@ public class Game {
 
         if (inferResult.getStrikeCnt() == 3) {
             isVictory = true;
+            inferResult.toVictory();
         }
 
         return inferResult;

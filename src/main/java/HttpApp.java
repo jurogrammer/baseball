@@ -1,11 +1,11 @@
 import game.Game;
 import game.dto.InferResult;
 import game.exception.GameException;
-import ui.Interactor;
 import ui.Resolver;
-import ui.UIFactory;
 import ui.exception.UIException;
-import ui.http.HttpFactory;
+import ui.http.Action;
+import ui.http.HttpInteractor;
+import ui.http.HttpResolver;
 
 import java.util.List;
 
@@ -13,42 +13,46 @@ public class HttpApp implements App {
 
     @Override
     public void run() {
-        UIFactory uiFactory = new HttpFactory();
-        Interactor interactor = uiFactory.createInteractor();
-        Resolver resolver = uiFactory.createResolver();
+        HttpInteractor interactor = new HttpInteractor();
+        HttpResolver resolver = new HttpResolver();
         Game game = new Game();
-
-        if (interactor.hasRead()) {
-            String read = interactor.read();
-            game.init();
-            interactor.write(resolver.startMessage());
-        }
 
         while (interactor.hasRead()) {
             try {
                 String read = interactor.read();
-                if (resolver.isIllegal(read)) {
-                    interactor.write("");
-                    continue;
-                }
-                List<Integer> question = resolver.resolveNumbers(read);
-                InferResult inferResult = game.inferNumbers(question);
-                String message = resolver.toGameMessage(inferResult);
-                interactor.write(message);
+                Action action = resolver.resolveAction(read);
 
-                if (game.isVictory()) {
-                    interactor.write(resolver.victoryMessage());
-                    Resolver.Progress progress = resolver.resolveStartOrEnd(interactor.read());
-                    if (progress == Resolver.Progress.END) {
+                switch (action) {
+                    case GAME_PAGE:
+                        game.init();
+                        interactor.write(resolver.startMessage());
                         break;
-                    }
-                    game.init();
+                    case INFER:
+                        // game쪽에 이 로직을 넣는게 더 맞는 듯.
+                        if (game.isVictory()) {
+                            throw new GameException("게임은 종료되었습니다.");
+                        }
+                        List<Integer> integers = resolver.resolveNumbers(read);
+                        InferResult inferResult = game.inferNumbers(integers);
+                        interactor.write(resolver.toGameMessage(inferResult));
+                        break;
+                    case RESTART:
+                        Resolver.Progress progress = resolver.resolveStartOrEnd(read);
+                        if (progress == Resolver.Progress.START) {
+                            game.init();
+                            interactor.write(resolver.toGameMessage("게임이 재시작되었습니다."));
+                            break;
+                        }
+
+                        interactor.write(resolver.toGameMessage("게임이 종료되었습니다."));
+                        break;
                 }
-            } catch (GameException | UIException ex) {
-                ex.printStackTrace();
-                interactor.write(resolver.toGameMessage(ex.getMessage()));
+            } catch (GameException | UIException retryableException) {
+                retryableException.printStackTrace();
+                interactor.write(resolver.toGameMessage(retryableException.getMessage()));
             } catch (Exception e) {
                 e.printStackTrace();
+                interactor.write(resolver.toGameMessage("치명적인 오류가 발생했습니다."));
             }
         }
     }

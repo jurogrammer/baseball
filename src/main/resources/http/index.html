@@ -33,10 +33,23 @@
             body: body
         }
 
+        let restartOption = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({"progress": "START"})
+        };
+
         fetch("/infer", option)
             .then(res => res.json())
             .then(data => {
                     resMessageBox.innerHTML += `<p>${data.message}</p>`
+                    if (data.isVictory) {
+                        alert("맞추셨습니다! 게임을 재시작합니다.")
+                        fetch("/restart", restartOption)
+                        resMessageBox.innerHTML = "";
+                    }
                 }
             )
     })
