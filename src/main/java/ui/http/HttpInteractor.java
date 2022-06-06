@@ -25,7 +25,6 @@ public class HttpInteractor implements Interactor {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -52,15 +51,18 @@ public class HttpInteractor implements Interactor {
                     continue;
                 }
                 byte[] lastFourBytes = {bytes[i - 3], bytes[i - 2], bytes[i - 1], bytes[i]};
-                if (Arrays.equals(endOfBytes, lastFourBytes)) {
-                    int contentLength = getContentLength(bytes);
-                    for (int contentIdx = 0; contentIdx < contentLength; contentIdx++) {
-                        i++;
-                        bytes[i] = (byte) inputStream.read();
-                    }
-                    break;
+                if (!Arrays.equals(endOfBytes, lastFourBytes)) {
+                    continue;
                 }
+
+                int contentLength = getContentLength(bytes);
+                for (int contentIdx = 0; contentIdx < contentLength; contentIdx++) {
+                    i++;
+                    bytes[i] = (byte) inputStream.read();
+                }
+                break;
             }
+
             return new String(bytes, StandardCharsets.UTF_8);
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,26 +87,28 @@ public class HttpInteractor implements Interactor {
         byte[] contentLengthByte = new byte[]{67, 111, 110, 116, 101, 110, 116, 45, 76, 101, 110, 103, 116, 104, 58, 32};
 
         for (int startIdx = 0; startIdx < bytes.length; startIdx++) {
-            if (isRight(bytes, contentLengthByte, startIdx)) {
-                int numberIdx = startIdx + contentLengthByte.length;
-                List<Byte> byteList = new ArrayList<>();
-                while (bytes[numberIdx] != 13) {
-                    byteList.add(bytes[numberIdx]);
-                    numberIdx++;
-                }
-                byte[] numBytes = new byte[byteList.size()];
-                for (int i = 0; i < byteList.size(); i++) {
-                    numBytes[i] = byteList.get(i);
-                }
-                String stringNumber = new String(numBytes, StandardCharsets.UTF_8);
-                return Integer.parseInt(stringNumber);
+            if (!isMatch(bytes, contentLengthByte, startIdx)) {
+                continue;
             }
+
+            int numberIdx = startIdx + contentLengthByte.length;
+            List<Byte> byteList = new ArrayList<>();
+            while (bytes[numberIdx] != 13) {
+                byteList.add(bytes[numberIdx]);
+                numberIdx++;
+            }
+            byte[] numBytes = new byte[byteList.size()];
+            for (int i = 0; i < byteList.size(); i++) {
+                numBytes[i] = byteList.get(i);
+            }
+            String stringNumber = new String(numBytes, StandardCharsets.UTF_8);
+            return Integer.parseInt(stringNumber);
         }
 
         return 0;
     }
 
-    private boolean isRight(byte[] bytes, byte[] contentLengthByte, int startIdx) {
+    private boolean isMatch(byte[] bytes, byte[] contentLengthByte, int startIdx) {
         int curIdx = startIdx;
         for (byte b : contentLengthByte) {
             if (curIdx >= bytes.length) {

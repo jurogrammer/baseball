@@ -17,14 +17,13 @@ public class HttpResolver implements Resolver {
     @Override
     public Progress resolveStartOrEnd(String startOrEnd) {
         try {
-            Request parse = new RequestParser().parse(startOrEnd);
-            String body = parse.getBody();
+            Request request = new RequestParser().parse(startOrEnd);
+            String body = request.getBody();
             ObjectMapper objectMapper = new ObjectMapper();
             ContinueQuestionRespDTO continueQuestionRespDTO = objectMapper.readValue(body, ContinueQuestionRespDTO.class);
             return continueQuestionRespDTO.getProgress();
 
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
             throw new UIException(e);
         }
     }

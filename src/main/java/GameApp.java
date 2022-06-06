@@ -5,8 +5,6 @@ import ui.Interactor;
 import ui.Resolver;
 import ui.UIFactory;
 import ui.exception.UIException;
-import ui.http.HttpInteractor;
-import ui.http.HttpResolver;
 import ui.terminal.TerminalFactory;
 
 import java.util.List;

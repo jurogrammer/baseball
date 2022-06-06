@@ -20,8 +20,8 @@ public class HttpApp implements App {
 
         if (interactor.hasRead()) {
             String read = interactor.read();
-            interactor.write(resolver.startMessage());
             game.init();
+            interactor.write(resolver.startMessage());
         }
 
         while (interactor.hasRead()) {
