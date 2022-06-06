@@ -21,6 +21,8 @@ public interface Resolver {
 
     String victoryMessage();
 
+    boolean isIllegal(String message);
+
     enum Progress {
         START,
         END

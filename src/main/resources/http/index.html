@@ -6,8 +6,39 @@
 </head>
 <body>
 <h1>게임을 시작하겠습니다! 입력해주세요</h1>
-<p>
-    이건 문단이에요~~
-</p>
+
+<form action="/infer" method="post" id="infer-submit">
+    <label for="numbers">숫자: </label>
+    <input type="text" name="numbers" id="numbers">
+    <button type="submit">정답?!</button>
+</form>
+
+<div id="responseMessage">
+</div>
 </body>
+
+<script>
+    let inferForm = document.getElementById("infer-submit");
+    let numbersInput = document.getElementById("numbers");
+    let resMessageBox = document.getElementById("responseMessage");
+
+    inferForm.addEventListener("submit", e => {
+        e.preventDefault();
+        let body = JSON.stringify({"numbers": numbersInput.value})
+        let option = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: body
+        }
+
+        fetch("/infer", option)
+            .then(res => res.json())
+            .then(data => {
+                    resMessageBox.innerHTML += `<p>${data.message}</p>`
+                }
+            )
+    })
+</script>
 </html>
