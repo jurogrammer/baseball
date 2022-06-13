@@ -30,10 +30,6 @@ public class ClientServerApp implements App {
                         interactor.write(resolver.startMessage());
                         break;
                     case INFER:
-                        // game쪽에 이 로직을 넣는게 더 맞는 듯.
-                        if (game.isVictory()) {
-                            throw new GameException("게임은 종료되었습니다.");
-                        }
                         List<Integer> integers = resolver.resolveNumbers(read);
                         InferResult inferResult = game.inferNumbers(integers);
                         interactor.write(resolver.toGameMessage(inferResult));
