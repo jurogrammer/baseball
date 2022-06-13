@@ -1,4 +1,4 @@
-package ui.http;
+package ui.clientserver.http;
 
 import ui.exception.UIException;
 

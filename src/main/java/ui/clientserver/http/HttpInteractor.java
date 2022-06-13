@@ -1,5 +1,6 @@
-package ui.http;
+package ui.clientserver.http;
 
+import ui.Interactor;
 import ui.exception.UIException;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HttpInteractor {
+public class HttpInteractor implements Interactor {
     private ServerSocket serverSocket;
     private Socket clientSocket;
 

@@ -1,9 +1,10 @@
-package ui.http;
+package ui.clientserver.http;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import game.dto.InferResult;
-import ui.Resolver;
+import ui.Progress;
+import ui.clientserver.ClientServerResolver;
 import ui.exception.UIException;
 
 import java.io.InputStream;
@@ -12,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HttpResolver {
+public class HttpResolver implements ClientServerResolver {
     private final ObjectMapper objectMapper;
     private final RequestParser requestParser;
 
@@ -21,13 +22,15 @@ public class HttpResolver {
         this.requestParser = requestParser;
     }
 
+    @Override
     public Action resolveAction(String httpRequest) {
         Request request = requestParser.parse(httpRequest);
         return Action.valueOf(request.getUrl(), request.getMethod());
     }
 
 
-    public Resolver.Progress resolveStartOrEnd(String startOrEnd) {
+    @Override
+    public Progress resolveStartOrEnd(String startOrEnd) {
         try {
             Request request = requestParser.parse(startOrEnd);
             String body = request.getBody();
@@ -40,6 +43,7 @@ public class HttpResolver {
         }
     }
 
+    @Override
     public List<Integer> resolveNumbers(String httpNumbers) {
         String numbers = "";
         try {
@@ -58,6 +62,7 @@ public class HttpResolver {
         }
     }
 
+    @Override
     public String toGameMessage(InferResult inferResult) {
         try {
             String message = getResultMessage(inferResult);
@@ -103,6 +108,7 @@ public class HttpResolver {
                 .toString();
     }
 
+    @Override
     public String startMessage() {
         try {
             InputStream indexStream = this.getClass().getResourceAsStream("/http/index.html");

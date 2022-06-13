@@ -1,10 +1,9 @@
 package ui.http;
 
 import org.junit.jupiter.api.Test;
+import ui.clientserver.http.HttpInteractor;
 
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class HttpInteractorTest {
 

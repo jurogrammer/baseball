@@ -1,13 +1,13 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
 import game.Game;
 import game.dto.InferResult;
 import game.exception.GameException;
-import ui.Resolver;
+import ui.Interactor;
+import ui.Progress;
+import ui.clientserver.ClientServerResolver;
+import ui.clientserver.ClientServerUIFactory;
+import ui.clientserver.http.Action;
+import ui.clientserver.http.HttpUIFactory;
 import ui.exception.UIException;
-import ui.http.Action;
-import ui.http.HttpInteractor;
-import ui.http.HttpResolver;
-import ui.http.RequestParser;
 
 import java.util.List;
 
@@ -15,8 +15,9 @@ public class ClientServerApp implements App {
 
     @Override
     public void run() {
-        HttpInteractor interactor = new HttpInteractor();
-        HttpResolver resolver = new HttpResolver(new ObjectMapper(), new RequestParser());
+        ClientServerUIFactory uiFactory = new HttpUIFactory();
+        Interactor interactor = uiFactory.createInteractor();
+        ClientServerResolver resolver = uiFactory.createResolver();
         Game game = new Game();
 
         while (interactor.hasRead()) {
@@ -35,8 +36,8 @@ public class ClientServerApp implements App {
                         interactor.write(resolver.toGameMessage(inferResult));
                         break;
                     case RESTART:
-                        Resolver.Progress progress = resolver.resolveStartOrEnd(read);
-                        if (progress == Resolver.Progress.START) {
+                        Progress progress = resolver.resolveStartOrEnd(read);
+                        if (progress == Progress.START) {
                             game.init();
                             interactor.write(resolver.toGameMessage("게임이 재시작되었습니다."));
                             break;

@@ -1,4 +1,4 @@
-package ui.terminal;
+package ui.reactive.terminal;
 
 import ui.Interactor;
 

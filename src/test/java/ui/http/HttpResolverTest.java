@@ -2,6 +2,8 @@ package ui.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import ui.clientserver.http.HttpResolver;
+import ui.clientserver.http.RequestParser;
 
 class HttpResolverTest {
 

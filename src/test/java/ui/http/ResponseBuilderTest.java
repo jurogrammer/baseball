@@ -1,8 +1,7 @@
 package ui.http;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import ui.clientserver.http.Response;
 
 class ResponseBuilderTest {
 

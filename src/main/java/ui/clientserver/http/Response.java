@@ -1,4 +1,4 @@
-package ui.http;
+package ui.clientserver.http;
 
 public class Response {
     private final String version;

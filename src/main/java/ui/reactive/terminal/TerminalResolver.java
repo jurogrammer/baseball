@@ -1,8 +1,9 @@
-package ui.terminal;
+package ui.reactive.terminal;
 
 import game.dto.InferResult;
+import ui.Progress;
 import ui.exception.UIException;
-import ui.Resolver;
+import ui.reactive.ReactiveResolver;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
  * 1. Terminal에서 들어온 String을 GAME INPUT에 알맞은 값으로 변환시키고
  * 2. GAME의 OUTPUT을 CLI에 반환될 값으로 반환시켜준다.
  */
-class TerminalResolver implements Resolver {
+class TerminalResolver implements ReactiveResolver {
 
     @Override
     public Progress resolveStartOrEnd(String startOrEnd) {
@@ -67,10 +68,5 @@ class TerminalResolver implements Resolver {
     @Override
     public String victoryMessage() {
         return "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
-    }
-
-    @Override
-    public boolean isIllegal(String message) {
-        return false;
     }
 }
