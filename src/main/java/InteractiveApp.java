@@ -1,23 +1,24 @@
 import game.Game;
 import game.dto.InferResult;
 import game.exception.GameException;
+import ui.Progress;
 import ui.Interactor;
-import ui.Resolver;
-import ui.UIFactory;
+import ui.reactive.ReactiveResolver;
+import ui.reactive.ReactiveUIFactory;
 import ui.exception.UIException;
-import ui.terminal.TerminalFactory;
+import ui.reactive.terminal.TerminalFactory;
 
 import java.util.List;
 
 /**
  * DI 및 flow control 하는 클래스
  */
-public class GameApp {
-    public static void run() {
+public class InteractiveApp implements App {
+    public void run() {
         // di
         Game game = new Game();
-        UIFactory uiFactory = new TerminalFactory();
-        Resolver resolver = uiFactory.createResolver();
+        ReactiveUIFactory uiFactory = new TerminalFactory();
+        ReactiveResolver resolver = uiFactory.createResolver();
         Interactor interactor = uiFactory.createInteractor();
 
         game.init();
@@ -27,8 +28,8 @@ public class GameApp {
             startGame(game, resolver, interactor);
             interactor.write(resolver.victoryMessage());
 
-            Resolver.Progress progress = resolver.resolveStartOrEnd(interactor.read());
-            if (progress == Resolver.Progress.END) {
+            Progress progress = resolver.resolveStartOrEnd(interactor.read());
+            if (progress == Progress.END) {
                 break;
             }
 
@@ -36,7 +37,7 @@ public class GameApp {
         }
     }
 
-    private static void startGame(Game game, Resolver resolver, Interactor interactor) {
+    private void startGame(Game game, ReactiveResolver resolver, Interactor interactor) {
         while (!game.isVictory()) {
             try {
                 List<Integer> question = resolver.resolveNumbers(interactor.read());

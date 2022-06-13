@@ -31,11 +31,15 @@ public class Game {
     }
 
     public InferResult inferNumbers(List<Integer> questionNumbers) {
-        InferResult inferResult = new InferResult();
+        if (isVictory()) {
+            throw new GameException("게임은 종료되었습니다.");
+        }
 
         if (questionNumbers.size() != DIGIT_SIZE) {
             throw new GameException(DIGIT_SIZE + "자리 숫자를 입력해주세요. 현재 입력한 숫자의 자리 수: " + questionNumbers.size());
         }
+
+        InferResult inferResult = new InferResult();
 
         for (int i = 0; i < numbers.size(); i++) {
             if (Objects.equals(questionNumbers.get(i), numbers.get(i))) {
@@ -50,6 +54,7 @@ public class Game {
 
         if (inferResult.getStrikeCnt() == 3) {
             isVictory = true;
+            inferResult.toVictory();
         }
 
         return inferResult;
