@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * DI 및 flow control 하는 클래스
  */
-public class GameApp implements App {
+public class InteractiveApp implements App {
     public void run() {
         // di
         Game game = new Game();

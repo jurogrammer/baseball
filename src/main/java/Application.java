@@ -1,6 +1,6 @@
 public class Application {
     public static void main(String[] args) {
-        App app = new HttpApp();
+        App app = new ClientServerApp();
         app.run();
     }
 }

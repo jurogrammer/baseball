@@ -11,7 +11,7 @@ import ui.http.RequestParser;
 
 import java.util.List;
 
-public class HttpApp implements App {
+public class ClientServerApp implements App {
 
     @Override
     public void run() {
