@@ -6,7 +6,6 @@ import ui.exception.UIException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -15,16 +14,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HttpInteractor implements Interactor {
-    private ServerSocket serverSocket;
+    private  final ServerSocket serverSocket;
     private Socket clientSocket;
 
-    public HttpInteractor() {
-        try {
-            serverSocket = new ServerSocket();
-            serverSocket.bind(new InetSocketAddress(8080), 1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public HttpInteractor(ServerSocket serverSocket) {
+        this.serverSocket = serverSocket;
     }
 
     public boolean hasRead() {
