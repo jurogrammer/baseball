@@ -7,8 +7,7 @@ import java.util.Set;
 public enum Action {
     GAME_PAGE(Set.of("/", ""), Method.GET),
     INFER(Set.of("/infer"), Method.POST),
-    RESTART(Set.of("/restart"), Method.POST)
-    ;
+    RESTART(Set.of("/restart"), Method.POST);
 
 
     private final Set<String> urls;

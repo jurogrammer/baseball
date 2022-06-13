@@ -1,7 +1,6 @@
 package ui.clientserver.http;
 
 import ui.Progress;
-import ui.reactive.ReactiveResolver;
 
 public class ContinueQuestionRespDTO {
 

@@ -1,11 +1,11 @@
 import game.Game;
 import game.dto.InferResult;
 import game.exception.GameException;
-import ui.Progress;
 import ui.Interactor;
+import ui.Progress;
+import ui.exception.UIException;
 import ui.reactive.ReactiveResolver;
 import ui.reactive.ReactiveUIFactory;
-import ui.exception.UIException;
 import ui.reactive.terminal.TerminalFactory;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * DI 및 flow control 하는 클래스
  */
-public class InteractiveApp implements App {
+public class ReactiveApp implements App {
     public void run() {
         // di
         Game game = new Game();

@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HttpInteractor implements Interactor {
-    private  final ServerSocket serverSocket;
+    private final ServerSocket serverSocket;
     private Socket clientSocket;
 
     public HttpInteractor(ServerSocket serverSocket) {
