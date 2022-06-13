@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HttpInteractor  {
+public class HttpInteractor {
     private ServerSocket serverSocket;
     private Socket clientSocket;
 

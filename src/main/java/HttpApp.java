@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
 import game.Game;
 import game.dto.InferResult;
 import game.exception.GameException;
@@ -6,6 +7,7 @@ import ui.exception.UIException;
 import ui.http.Action;
 import ui.http.HttpInteractor;
 import ui.http.HttpResolver;
+import ui.http.RequestParser;
 
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class HttpApp implements App {
     @Override
     public void run() {
         HttpInteractor interactor = new HttpInteractor();
-        HttpResolver resolver = new HttpResolver();
+        HttpResolver resolver = new HttpResolver(new ObjectMapper(), new RequestParser());
         Game game = new Game();
 
         while (interactor.hasRead()) {

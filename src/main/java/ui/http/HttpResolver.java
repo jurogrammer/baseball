@@ -13,9 +13,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class HttpResolver {
+    private final ObjectMapper objectMapper;
+    private final RequestParser requestParser;
+
+    public HttpResolver(ObjectMapper objectMapper, RequestParser requestParser) {
+        this.objectMapper = objectMapper;
+        this.requestParser = requestParser;
+    }
 
     public Action resolveAction(String httpRequest) {
-        RequestParser requestParser = getRequestParser();
         Request request = requestParser.parse(httpRequest);
         return Action.valueOf(request.getUrl(), request.getMethod());
     }
@@ -23,7 +29,7 @@ public class HttpResolver {
 
     public Resolver.Progress resolveStartOrEnd(String startOrEnd) {
         try {
-            Request request = new RequestParser().parse(startOrEnd);
+            Request request = requestParser.parse(startOrEnd);
             String body = request.getBody();
             ObjectMapper objectMapper = new ObjectMapper();
             ContinueQuestionRespDTO continueQuestionRespDTO = objectMapper.readValue(body, ContinueQuestionRespDTO.class);
@@ -37,9 +43,8 @@ public class HttpResolver {
     public List<Integer> resolveNumbers(String httpNumbers) {
         String numbers = "";
         try {
-            Request parse = new RequestParser().parse(httpNumbers);
+            Request parse = requestParser.parse(httpNumbers);
             String body = parse.getBody();
-            ObjectMapper objectMapper = new ObjectMapper();
             InferRequest inferRequest = objectMapper.readValue(body, InferRequest.class);
 
             numbers = inferRequest.getNumbers();
@@ -57,14 +62,16 @@ public class HttpResolver {
         try {
             String message = getResultMessage(inferResult);
             InferResponse inferResponse = new InferResponse(message, inferResult.getVictory());
-            ObjectMapper objectMapper = new ObjectMapper();
             String body = objectMapper.writeValueAsString(inferResponse);
 
-            return new ResponseBuilder()
+            return Response
+                    .builder()
                     .ok()
                     .addHeader("Content-Type", "application/json")
                     .body(body)
-                    .build();
+                    .build()
+                    .toString();
+
         } catch (Exception e) {
             throw new UIException(e);
         }
@@ -87,31 +94,29 @@ public class HttpResolver {
     }
 
     public String toGameMessage(String message) {
-        return new ResponseBuilder()
+        return Response
+                .builder()
                 .ok()
                 .addHeader("Content-Type", "application/json")
                 .body(String.format("{\"message\": \"%s\"}", message))
-                .build();
+                .build()
+                .toString();
     }
 
     public String startMessage() {
         try {
-            ResponseBuilder responseBuilder = new ResponseBuilder();
             InputStream indexStream = this.getClass().getResourceAsStream("/http/index.html");
             if (indexStream == null) {
                 throw new UIException("index.html 파일이 존재하지 않습니다.");
             }
-            return responseBuilder.ok()
+            return Response.builder()
+                    .ok()
                     .addHeader("Content-Type", "text/html; charset=utf-8")
                     .body(new String(indexStream.readAllBytes(), StandardCharsets.UTF_8))
-                    .build();
+                    .build()
+                    .toString();
         } catch (Exception e) {
             throw new UIException(e);
         }
     }
-
-    private RequestParser getRequestParser() {
-        return new RequestParser();
-    }
-
 }
